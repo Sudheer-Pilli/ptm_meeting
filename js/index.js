@@ -36,6 +36,11 @@ student.controller('studentCtrl', function($rootScope) {
 
 })
 
+student.controller('homeCtrl', function($rootScope) {
+
+
+})
+
 student.controller('displayCtrl', function($scope, $rootScope, $http, $location) {
     $rootScope.studentUpdate = 0
     $http.get('http://localhost:9000/meeting')
@@ -52,57 +57,35 @@ student.controller('displayCtrl', function($scope, $rootScope, $http, $location)
     $scope.updateStudent = function(meetingModel) {
         meetingModel.meeting_time = formatDate(meetingModel.meeting_time)
         $rootScope.meetingModel = meetingModel
+        $rootScope.studentUpdate = 1
     }
-    $scope.addStudent = function() {
-        console.log("check")
-        $http.post('http://localhost:9000/addMeeting', { 'data': $rootScope.meetingModel })
-            .success((response) => {
-                console.log("Added successfully");
+
+})
+student.controller('searchCtrl', function($scope, $rootScope, $http) {
+    $rootScope.studentUpdate = 0
+    $http.get('http://localhost:9000/meeting')
+        .success((response) => {
+            $scope.students = response
+        })
+    $scope.delStudent = function(id) {
+        $http.post('http://localhost:9000/delStudent', { 'id': id })
+            .success(() => {
                 $location.path = '/'
             })
     }
-})
-student.controller('mcaCtrl', function($scope, $rootScope) {
-    $rootScope.studentUpdate = 0
-    $scope.course = 'MCA'
-    $http.get('http://localhost:9000/meeting')
-        .success((response) => {
-            $scope.students = response
-        })
-})
-student.controller('maleCtrl', function($scope, $rootScope) {
-    $rootScope.studentUpdate = 0
-    $scope.gender = 'male'
-    $scope.grade = 'A'
-    $http.get('http://localhost:9000/maleAG')
-        .success((response) => {
-            $scope.students = response
-        })
-})
-student.controller('searchCtrl', function($scope, $rootScope, $http) {
-    $rootScope.studentUpdate = 0
-    $http.get('http://localhost:9000/meeting')
-        .success((response) => {
-            console.log(response);
-            $scope.students = response
-        })
-})
-student.controller('searchCtrl', function($scope, $rootScope, $http) {
-    $rootScope.studentUpdate = 0
-    $http.get('http://localhost:9000/meeting')
-        .success((response) => {
-            $scope.students = response
-        })
+    $scope.updateStudent = function(meetingModel) {
+        meetingModel.meeting_time = formatDate(meetingModel.meeting_time)
+        $rootScope.meetingModel = meetingModel
+        $rootScope.studentUpdate = 1
+    }
 })
 student.controller('addCtrl', function($scope, $rootScope, $http, $location, $window) {
     console.log("check")
-    $scope.meetingModel = $rootScope.meetingModel
+    $rootScope.meetingModel = ''
     $scope.addmeeting = function() {
         $http.post('http://localhost:9000/addMeeting', { 'data': $scope.meetingModel })
             .success((response) => {
                 console.log("Added successfully");
-                // $location.path('#displayStudents');
-
             })
             .error(err => {
                 console.log(err)

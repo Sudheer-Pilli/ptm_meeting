@@ -1,9 +1,9 @@
 
 <div class="container mt-3" ng-controller="searchCtrl">
-    <h1>Search by ID</h1>
+    <h1>Search by Meeting Name</h1>
 
     <div class="my-5">
-        <label for="SID">Meeting ID:</label>
+        <label for="SID">Meeting Name:</label>
         <input type="text" id="SID" ng-model="SID">
     </div>
 
@@ -26,8 +26,8 @@
                 <th>{{stu.meeting_time | date: "dd-MM-yyyy hh:mm:ss"}}</th>
                 <th>{{stu.set_by}}</th>
                 <th>{{stu.meeting_link}}</th>
-                <th><span class="material-icons">edit</span></th>
-                <th><span class="material-icons" onclick="delStudent(stu.meeting_id)">delete</span></th>
+                <th><a href="#update"><span class="material-icons" ng-click="updateStudent(stu)" >edit</span></a></th>
+                <th><a href=""><span class="material-icons" ng-click="delStudent(stu.meeting_id)">delete</span></a></th>
             </tr>
         </tbody>
     </table>

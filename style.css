@@ -337,9 +337,6 @@ header {
         left: 0;
         width: 100%;
     }
-    .sidebar ul li a.toggle {
-        display: none;
-    }
 }
 
  :root {

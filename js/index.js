@@ -89,7 +89,7 @@ student.controller('searchCtrl', function($scope, $rootScope, $http) {
 })
 student.controller('searchCtrl', function($scope, $rootScope, $http) {
     $rootScope.studentUpdate = 0
-    $http.get('http://127.0.0.1:9000/stuinfo')
+    $http.get('http://localhost:9000/meeting')
         .success((response) => {
             $scope.students = response
         })

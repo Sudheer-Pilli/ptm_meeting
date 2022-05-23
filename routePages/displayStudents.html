@@ -1,0 +1,29 @@
+
+<div class="container mt-3" ng-controller="displayCtrl">
+    <h1>Display Meetings</h1>
+
+    <table class="table table-collapse mt-5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Time</th>
+                <th>set_by</th>
+                <th>meeting_link</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="stu in students">
+            <tr>
+                <th>{{stu.meeting_id}}</th>
+                <th>{{stu.meeting_name}}</th>
+                <th>{{stu.meeting_time | date: "dd-MM-yyyy hh:mm:ss"}}</th>
+                <th>{{stu.set_by}}</th>
+                <th>{{stu.meeting_link}}</th>
+                <th><a href="#update"><span class="material-icons" ng-click="updateStudent(stu)" >edit</span></a></th>
+                <th><a href=""><span class="material-icons" ng-click="delStudent(stu.meeting_id)">delete</span></a></th>
+            </tr>
+        </tbody>
+    </table>
+</div>

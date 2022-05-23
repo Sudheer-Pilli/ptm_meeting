@@ -1,0 +1,34 @@
+
+<div class="container mt-3" ng-controller="searchCtrl">
+    <h1>Search by ID</h1>
+
+    <div class="my-5">
+        <label for="SID">Meeting ID:</label>
+        <input type="text" id="SID" ng-model="SID">
+    </div>
+
+    <table class="table table-collapse mt-5">
+        <thead>
+            <tr>
+                <th>MEETING ID</th>
+                <th>MEETING Name</th>
+                <th>Meeting_time</th>
+                <th>set_by</th>
+                <th>meeting_link</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="stu in students | filter: SID">
+            <tr>
+                <th>{{stu.meeting_id}}</th>
+                <th>{{stu.meeting_name}}</th>
+                <th>{{stu.meeting_time}}</th>
+                <th>{{stu.set_by}}</th>
+                <th>{{stu.meeting_link}}</th>
+                <th><span class="material-icons">edit</span></th>
+                <th><span class="material-icons" onclick="delStudent(stu.meeting_id)">delete</span></th>
+            </tr>
+        </tbody>
+    </table>
+</div>

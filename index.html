@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal task management </title>
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        .open-button {
+            background-color: #325deb;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            /* position: fixed;
+            bottom: 23px;
+            right: 28px; */
+            width: 280px;
+            display: block;
+        }
+
+        /* The popup form - hidden by default */
+        .form-popup {
+            display: none;
+            /* position: fixed; */
+            /* bottom: 0; */
+            /* right: 15px; */
+            border: none;
+            z-index: 9;
+        }
+
+        /* Add styles to the form container */
+        .form-container {
+            margin: 10px;
+            ;
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        /* Full-width input fields */
+        .form-container input[type=text],
+        .form-container input[type=password],
+        .form-container input[type=number] {
+            width: 90%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        /* When the inputs get focus, do something */
+        .form-container input[type=text]:focus,
+        .form-container input[type=password]:focus,
+        .form-container input[type=number]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for the submit/login button */
+        .form-container .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+
+        /*Table CSS*/
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #325deb;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #bac8f4;
+        }
+
+        .styled-table tbody tr:nth-of-type(odd) {
+            background-color: #ffffff;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #325deb;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #325deb;
+        }
+        .delete-btn{
+            background-color: rgb(234, 61, 61);
+            border: none;
+            color: aliceblue;
+            border-radius: 5px;
+        }
+
+        .delete-btn:hover{
+            box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+
+        .edit-btn{
+            background-color: rgb(66, 31, 222);
+            border: none;
+            color: aliceblue;
+            border-radius: 5px;
+        }
+
+        .edit-btn:hover{
+            box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body ng-app="student" ng-controller="studentCtrl">
+
+
+    <nav class="navbar navbar-expand-sm|md|lg|-xl navbar-light bg-light">
+          <div class="container">
+            <a class="navbar-brand" href="#">MEETINGS</a>
+            <ul class="nav justify-content-center|justify-content-end">
+               
+                <div class="dropdown open">
+                    <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"aria-expanded="false">Manage Meetings</a>
+                    <div class="dropdown-menu" aria-labelledby="triggerId">
+                        <a class="dropdown-item" href="#displayStudents">Display</a>
+                        <a class="dropdown-item" href="#searchID">ID Search</a>
+                        <a class="dropdown-item" href="#addStudent">Add</a>
+                    </div>
+                </div>
+               
+            </ul>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/manage">Manage Meetings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/search">Search</a>
+                    </li>
+                </ul>
+            </div>
+      </div>
+    </nav>
+
+    <ng-view></ng-view>
+
+    <script src="./js/index.js"></script>
+</body>
+</html>
